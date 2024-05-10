@@ -41,7 +41,7 @@ Unfortunately there is only one (but still amazing) endpoint:
 ## GET /forecast
 Get the weather forecast and estimate energy production from a photovoltaic installation for the next 7 days based on specified latitude and longitude coordinates.
 
-**Parameters**
+**Query Parameters**
 
 |          Name | Required |  Type   | Description                                                                                                                                                           |
 | -------------:|:--------:|:-------:| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
