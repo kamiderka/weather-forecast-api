@@ -58,7 +58,7 @@ Get the weather forecast and estimate energy production from a photovoltaic inst
         "temperatureMin": 27,
         "energy": 5.24
     },
-    ...
+    
 ]
 ```
 or
