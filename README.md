@@ -9,7 +9,7 @@ Weather (and Energy) Forecast API
 </p>
 
 # Description 
-An application to display the weather forecast for the next 7 days using an external API. Additionally, the application should estimate the forecasted energy production from a photovoltaic installation.
+An application to display the weather forecast for the next 7 days using an external API. Additionally, the application estimates the forecasted energy production from a photovoltaic installation.
 
 # Run 
 ### From repository
@@ -49,28 +49,17 @@ Get the weather forecast and estimate energy production from a photovoltaic inst
 |     `longitude` | required | float  | Supported values: `<-180.0;180.0>`                                                                                                                                           |
 
 **Response**
-**(will be changed soon to more front-end frieldy >:})**
 ```json
-{
-    "date": [
-        "2024-05-10T00:00:00+00:00",
-    ],
-    "weather_code": [
-        3.0,
-    ],
-    "temperature_2m_max": [
-        42.002498626708984,
-    ],
-    "temperature_2m_min": [
-        31.15250015258789,
-    ],
-    "sunshine_duration": [
-        42799.9140625,
-    ],
-    "energy": [
-        5.944432508680555,
-    ]
-}
+[
+    {
+        "date": "2024-05-15T00:00:00+00:00",
+        "weatherCode": 80,
+        "temperatureMax": 28,
+        "temperatureMin": 27,
+        "energy": 5.24
+    },
+    ...
+]
 ```
 or
 ```json
