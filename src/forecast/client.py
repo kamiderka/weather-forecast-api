@@ -28,13 +28,13 @@ class OpenMeteoClient:
         
         return responses
     
-    async def parseResponseToDailyDict(self, response:WeatherApiResponse) -> pd.DataFrame:
+    async def parseResponseToDailyDataframe(self, response:WeatherApiResponse) -> pd.DataFrame:
         daily = response.Daily()
 
-        daily_weather_code = daily.Variables(0).ValuesAsNumpy()
-        daily_temperature_2m_max = daily.Variables(1).ValuesAsNumpy()
-        daily_temperature_2m_min = daily.Variables(2).ValuesAsNumpy()
-        daily_sunshine_duration = daily.Variables(3).ValuesAsNumpy()
+        daily_weather_code = daily.Variables(0).ValuesAsNumpy().astype(int)
+        daily_temperature_2m_max = daily.Variables(1).ValuesAsNumpy().astype(int)
+        daily_temperature_2m_min = daily.Variables(2).ValuesAsNumpy().astype(int)
+        daily_sunshine_duration = daily.Variables(3).ValuesAsNumpy().astype(int)
 
         daily_data = {"date": pd.date_range(
             start = pd.to_datetime(daily.Time(), unit = "s", utc = True),
@@ -42,17 +42,19 @@ class OpenMeteoClient:
             freq = pd.Timedelta(seconds = daily.Interval()),
             inclusive = "left"
         )}
-        daily_data["weather_code"] = daily_weather_code
-        daily_data["temperature_2m_max"] = daily_temperature_2m_max
-        daily_data["temperature_2m_min"] = daily_temperature_2m_min
-        daily_data["sunshine_duration"] = daily_sunshine_duration
+        daily_data["weatherCode"] = daily_weather_code
+        daily_data["temperatureMax"] = daily_temperature_2m_max
+        daily_data["temperatureMin"] = daily_temperature_2m_min
+        daily_data["sunshineDuration"] = daily_sunshine_duration
         daily_dataframe = pd.DataFrame(data = daily_data)
         return daily_dataframe
 
 
-    async def getForecast(self, latitude :float, longitude:float ) -> Tuple[dict, str]:
+    async def getForecast(self, latitude :float, longitude:float ) -> pd.DataFrame:
         params = buildForecastQueryParams(latitude, longitude)
         responses = await self.getResponsesFromClient(self._url, params)
         response = responses[0]
-        daily_dataframe = await self.parseResponseToDailyDict(response)
-        return daily_dataframe.to_dict('list')
+        daily_dataframe = await self.parseResponseToDailyDataframe(response)
+        return daily_dataframe
+
+# -> 
