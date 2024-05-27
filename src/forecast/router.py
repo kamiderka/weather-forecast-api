@@ -11,7 +11,7 @@ openMeteoClient = OpenMeteoClient()
 async def getForecastWithEnergy(latitude :float, longitude:float):
     ok, err = validateCoordinates(latitude, longitude)
     if not ok:
-        raise HTTPException(status_code=422, detail=err)
+        raise HTTPException(status_code=400, detail=err)
     
     forecast_df = await openMeteoClient.getForecast(latitude, longitude)
     forecast_df['energy'] = forecast_df['sunshineDuration'].apply(getEnergyFromSunlightDuration).round(2)
