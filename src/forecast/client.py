@@ -28,7 +28,7 @@ class OpenMeteoClient:
         
         return responses
     
-    async def parseResponseToDailyDataframe(self, response:WeatherApiResponse) -> pd.DataFrame:
+    def parseResponseToDailyDataframe(self, response:WeatherApiResponse) -> pd.DataFrame:
         daily = response.Daily()
 
         daily_weather_code = daily.Variables(0).ValuesAsNumpy().astype(int)
@@ -54,7 +54,7 @@ class OpenMeteoClient:
         params = buildForecastQueryParams(latitude, longitude)
         responses = await self.getResponsesFromClient(self._url, params)
         response = responses[0]
-        daily_dataframe = await self.parseResponseToDailyDataframe(response)
+        daily_dataframe = self.parseResponseToDailyDataframe(response)
         return daily_dataframe
 
 # -> 
