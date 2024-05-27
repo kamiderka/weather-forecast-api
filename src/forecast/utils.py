@@ -1,8 +1,5 @@
 from typing import Tuple
-
-PHOTOVOLTAIC_POWER = 2.5  # kW
-PANEL_EFFCIENCY = 0.2
-
+from .constans import PHOTOVOLTAIC_POWER, PANEL_EFFCIENCY
 
 def validateCoordinates(latitude: float, longitude: float) -> Tuple[bool, str]:
     if latitude < -90 or latitude > 90:
